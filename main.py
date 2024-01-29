@@ -19,7 +19,6 @@ screen.tracer(0)
 
 bat = Bat()
 ball = Ball()
-# brick = Brick()
 scoreboard = Scoreboard()
 wall = BrickWall()
 
@@ -44,30 +43,19 @@ while game_is_on:
 
     # Detect collision of the ball with the bat
     if ball.distance(bat) < (2*COLLISION_INTERVAL):
-        print("collision with bat")
         ball.bounce_y()
 
-    # Detect collision of the ball with the brick
-    # if ball.distance(brick) < (2*COLLISION_INTERVAL):
-    #     print("collision with brick")
-    #     scoreboard.increase_score(ball.value)
-    #     ball.bounce_y()
 
     # Detect collision of the ball with the wall
     for brick in wall.bricks:
         if (ball.distance(brick) < (2 * COLLISION_INTERVAL)) and brick.isvisible():
             scoreboard.increase_score(brick.value)
-            brick.hideturtle()
-            # wall.brick_count-=1
+            wall.remove_brick(brick)
             ball.bounce_y()
 
     if wall.wall_is_empty():
         game_is_won = True
         game_is_on = False
-
-    # if wall.brick_count < 1:
-    #     game_is_won = True
-    #     game_is_on = False
 
 if game_is_won:
     scoreboard.game_won()

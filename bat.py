@@ -19,10 +19,8 @@ class Bat(Turtle):
         """ Moves the bat one step to the right """
         if self.xcor() < X_MAX:
             self.forward(10)
-        print("left")
 
     def move_left(self):
         """ Moves the bat one step to the left """
         if self.xcor() > - X_MAX:
             self.backward(10)
-        print("right")
