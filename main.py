@@ -1,7 +1,7 @@
 from turtle import Screen
 from bat import Bat
 from ball import Ball
-from brick import Brick
+from brick import Brick, BrickWall
 from scoreboard import Scoreboard
 import time
 
@@ -19,14 +19,16 @@ screen.tracer(0)
 
 bat = Bat()
 ball = Ball()
-brick = Brick()
+# brick = Brick()
 scoreboard = Scoreboard()
+wall = BrickWall()
 
 screen.listen()
 screen.onkey(bat.move_left, "Left")
 screen.onkey(bat.move_right, "Right")
 
 game_is_on = True
+game_is_won = False
 while game_is_on:
     screen.update()
     time.sleep(BALL_MOVE_RATE)
@@ -46,11 +48,30 @@ while game_is_on:
         ball.bounce_y()
 
     # Detect collision of the ball with the brick
-    if ball.distance(brick) < (2*COLLISION_INTERVAL):
-        print("collision with brick")
-        scoreboard.increase_score(ball.value)
-        ball.bounce_y()
+    # if ball.distance(brick) < (2*COLLISION_INTERVAL):
+    #     print("collision with brick")
+    #     scoreboard.increase_score(ball.value)
+    #     ball.bounce_y()
 
-scoreboard.game_over()
+    # Detect collision of the ball with the wall
+    for brick in wall.bricks:
+        if (ball.distance(brick) < (2 * COLLISION_INTERVAL)) and brick.isvisible():
+            scoreboard.increase_score(brick.value)
+            brick.hideturtle()
+            # wall.brick_count-=1
+            ball.bounce_y()
+
+    if wall.wall_is_empty():
+        game_is_won = True
+        game_is_on = False
+
+    # if wall.brick_count < 1:
+    #     game_is_won = True
+    #     game_is_on = False
+
+if game_is_won:
+    scoreboard.game_won()
+else:
+    scoreboard.game_over()
 
 screen.exitonclick()

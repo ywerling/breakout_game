@@ -16,7 +16,6 @@ class Ball(Turtle):
         self.shapesize(1, 1)
         self.x_move = STEP_SIZE
         self.y_move = STEP_SIZE
-        self.value = 3
 
     def move(self):
         new_x = self.xcor() + self.x_move

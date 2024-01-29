@@ -6,7 +6,7 @@ Y_POS = -100
 
 
 class Scoreboard(Turtle):
-    """ Tracking of the player's score using Turtle """
+    """ Tracking the player's score using Turtle """
 
     def __init__(self):
         super().__init__()
@@ -24,6 +24,11 @@ class Scoreboard(Turtle):
         self.goto(0, 0)
         self.color("red")
         self.write("GAME OVER", align=ALIGNMENT, font=FONT)
+
+    def game_won(self):
+        self.goto(0, 0)
+        self.color("cyan")
+        self.write("CONGRATULATIONS YOU WON!", align=ALIGNMENT, font=FONT)
 
     def increase_score(self,increment):
         self.score += increment
