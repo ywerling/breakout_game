@@ -42,10 +42,14 @@ class BrickWall():
             Checks whether there are still visible bricks
         :return: False if all bricks are invisible otherwise True
         """
-        for brick in self.bricks:
-            if brick.isvisible():
-                return False
-        return True
+        if self.count < 1:
+            return True
+        else:
+            return False
+        # for brick in self.bricks:
+        #     if brick.isvisible():
+        #         return False
+        # return True
 
     def remove_brick(self, brick):
         """
